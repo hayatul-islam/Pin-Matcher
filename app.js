@@ -19,6 +19,10 @@ document.getElementById('key-pad').addEventListener('click', function (event) {
     if(isNaN(number)){
         if(number == 'C'){
             calcInput.value = '';
+        }else if(number == '<'){
+            const itemDelete = calcInput.value;
+            const itemValue = itemDelete.substr(0, itemDelete.length - 1);
+            calcInput.value = itemValue;
         }
     }else{
         const prevNumber = calcInput.value;
@@ -35,12 +39,23 @@ function verifyPin() {
     const successMessage = document.getElementById('notify-success');
     const errorMassage = document.getElementById('notify-fail');
 
+    const action = document.getElementById('action');
+    const actionValue = document.getElementById('actionValue');
+
     if(pin == typedNumber){
         successMessage.style.display = 'block';
         errorMassage.style.display = 'none';
+        action.style.display = 'none';
     }else{
         errorMassage.style.display = 'block';
         successMessage.style.display = 'none';
+
+        if(actionValue.innerText > 0){
+            action.style.display = 'block';
+            actionValue.innerText -= 1;
+        }else{
+            alert('Please valid information and try again!')
+        }
     }
     
 }
